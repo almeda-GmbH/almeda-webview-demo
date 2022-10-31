@@ -1,0 +1,7 @@
+{
+  "name": "almeda-webview-demo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
