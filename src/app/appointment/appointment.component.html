@@ -1,0 +1,10 @@
+<ion-content [fullscreen]="true">
+    <ng-container *ngIf="joinLink; else errorTemp">
+        <iframe [src]="getUrl()" frameborder="0" style="width:100%;height:100%" scrolling="yes"></iframe>
+    </ng-container>
+
+    <ng-template #errorTemp>
+        <p>Please enter the valid URL and try again!</p>
+    </ng-template>
+
+</ion-content>

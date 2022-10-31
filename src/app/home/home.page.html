@@ -1,20 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+    <ion-item fill="outline">
+      <ion-label position="stacked"></ion-label>
+      <ion-input placeholder="https://enter-the-join-link.almeda.de" type="url" [formControl]="joinInputCtrl">
+      </ion-input>
+      <ion-note slot="error" id="urlError" *ngIf="joinInputCtrl.touched">Enter valid URL</ion-note>
+    </ion-item>
+
+
+    <ion-grid>
+      <ion-row class="ion-justify-content-end">
+        <ion-col size="3">
+          <ion-button color="light" [disabled]="!joinInputCtrl.value" (click)="clear()">Clear</ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button (click)="joinLink()" [disabled]="!joinInputCtrl.valid">Join</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
   </div>
 </ion-content>
