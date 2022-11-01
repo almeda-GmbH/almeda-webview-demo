@@ -1,6 +1,14 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "demo.webview.almeda.ionic",
 	"appName": "almeda-webview-demo",
 	"webDir": "www",
-	"bundledWebRuntime": false
-}
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"plugins": {
+	  "SplashScreen": {
+		"launchShowDuration": 0
+	  }
+	},
+	"cordova": {}
+  }
+  
