@@ -38,10 +38,12 @@ export class AppointmentPage implements OnInit, AfterViewInit {
     ngOnInit() { }
 
     ngAfterViewInit() {
+        // Disable changeDetection to aviod unnecessary reloading of the iFrame
         this.ref.detach();
     }
 
     getUrl() {
+        // Sanitize the URL to allow
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.joinLink);
     }
 
