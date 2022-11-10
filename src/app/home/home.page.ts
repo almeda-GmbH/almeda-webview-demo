@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  private dummyLink = 'https://test-dev.almeda.de/a/09882ce9-a24b-4015-be6c-a946b30f5085';
+  private dummyLink = environment?.dummyLink || 'https://test-dev.almeda.de/a/09882ce9-a24b-4015-be6c-a946b30f5085';
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   joinInputCtrl = new FormControl(this.dummyLink, urlValidator());

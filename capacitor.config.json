@@ -4,12 +4,14 @@
 	"webDir": "www",
 	"bundledWebRuntime": false,
 	"npmClient": "npm",
-	"appendUserAgent":"almeda/webview",
+	"appendUserAgent": "almeda/webview",
 	"plugins": {
-	  "SplashScreen": {
-		"launchShowDuration": 0
-	  }
+		"SplashScreen": {
+			"launchShowDuration": 0
+		}
 	},
-	"cordova": {}
-  }
-  
+	"cordova": {},
+	"server": {
+		"cleartext": true
+	}
+}

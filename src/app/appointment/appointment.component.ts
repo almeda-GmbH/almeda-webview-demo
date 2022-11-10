@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -10,13 +10,14 @@ import { take } from 'rxjs/operators';
     styleUrls: ['appointment.component.scss']
 })
 
-export class AppointmentPage implements OnInit {
+export class AppointmentPage implements OnInit, AfterViewInit {
     joinLink = '';
     constructor(
         private activateRoute: ActivatedRoute,
         private sanitizer: DomSanitizer,
         private router: Router,
-        private alertController: AlertController
+        private alertController: AlertController,
+        private ref: ChangeDetectorRef
     ) {
         this.activateRoute.queryParams.pipe(take(1))
             .subscribe(async params => {
@@ -35,6 +36,10 @@ export class AppointmentPage implements OnInit {
     }
 
     ngOnInit() { }
+
+    ngAfterViewInit() {
+        this.ref.detach();
+    }
 
     getUrl() {
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.joinLink);
