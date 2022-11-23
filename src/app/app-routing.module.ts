@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AppointmentPage } from './appointment/appointment.component';
+import { AppointmentIFramePage } from './appointment-iframe/appointment-iframe.component';
 import { HomePage } from './home/home.page';
 
 const routes: Routes = [
@@ -9,8 +9,8 @@ const routes: Routes = [
     component: HomePage
   },
   {
-    path: 'appointment',
-    component: AppointmentPage
+    path: 'appointment-iframe',
+    component: AppointmentIFramePage
   },
   {
     path: '',

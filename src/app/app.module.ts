@@ -7,13 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomePage } from './home/home.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AppointmentPage } from './appointment/appointment.component';
+import { AppointmentIFramePage } from './appointment-iframe/appointment-iframe.component';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePage,
-    AppointmentPage
+    AppointmentIFramePage,
   ],
   imports: [
     BrowserModule,
@@ -21,12 +22,14 @@ import { AppointmentPage } from './appointment/appointment.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [{
     provide: RouteReuseStrategy,
     useClass: IonicRouteStrategy
-  }],
+  },
+    InAppBrowser
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

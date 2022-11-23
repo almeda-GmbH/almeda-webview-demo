@@ -8,6 +8,17 @@
       <ion-note slot="error" id="urlError" *ngIf="joinInputCtrl.touched">Enter valid URL</ion-note>
     </ion-item>
 
+    <ion-text>
+      <h6 style="margin-top: 30px;">Open as</h6>
+    </ion-text>
+    <ion-list>
+      <ion-radio-group [(ngModel)]="selectedMethod">
+        <ion-item *ngFor="let item of availableMethods">
+          <ion-label>{{item.name}}</ion-label>
+          <ion-radio slot="end" [value]="item.value"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
 
     <ion-grid>
       <ion-row class="ion-justify-content-end">
@@ -19,6 +30,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+
 
   </div>
 </ion-content>
