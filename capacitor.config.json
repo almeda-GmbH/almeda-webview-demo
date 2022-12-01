@@ -12,6 +12,9 @@
 	},
 	"cordova": {},
 	"server": {
-		"cleartext": true
+		"cleartext": true,
+		"allowNavigation": [
+			"*.ngrok.io"
+		]
 	}
 }

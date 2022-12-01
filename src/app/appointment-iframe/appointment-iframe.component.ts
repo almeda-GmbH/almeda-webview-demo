@@ -5,12 +5,12 @@ import { AlertController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-appointment',
-    templateUrl: 'appointment.component.html',
-    styleUrls: ['appointment.component.scss']
+    selector: 'app-appointment-iframe',
+    templateUrl: 'appointment-iframe.component.html',
+    styleUrls: ['appointment-iframe.component.scss']
 })
 
-export class AppointmentPage implements OnInit, AfterViewInit {
+export class AppointmentIFramePage implements OnInit, AfterViewInit {
     joinLink = '';
     constructor(
         private activateRoute: ActivatedRoute,
