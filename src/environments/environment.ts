@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  dummyLink: 'https://d418-2003-d1-173b-8b00-825-c81a-97f3-25c4.eu.ngrok.io/a/1fef2216-9b53-4f42-99b0-66a2fabc5c77'
+  dummyLink: 'https://webcamtests.com/'
 };
 
 /*

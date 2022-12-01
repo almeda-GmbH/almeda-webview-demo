@@ -3,12 +3,14 @@ import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
+import { FileDownloadService } from '../services/file-download.service';
 
 enum AllowedMethodsTypes {
   iFrame = 'iframe',
   inappbrowser = 'iab'
 }
-
+declare let cordova;
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -32,8 +34,47 @@ export class HomePage {
 
   constructor(
     private router: Router,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    private androidPermissions: AndroidPermissions,
+    private fileDownloadService: FileDownloadService
   ) { }
+
+  initPermissions() {
+    const permissionsList = [
+      this.androidPermissions.PERMISSION.MODIFY_AUDIO_SETTINGS,
+      this.androidPermissions.PERMISSION.RECORD_AUDIO,
+      this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
+      this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
+      this.androidPermissions.PERMISSION.CAMERA
+    ];
+    permissionsList.forEach(p => {
+      this.androidPermissions.checkPermission(p)
+        .then(
+          result => {
+            console.log(p, 'has permission?', JSON.stringify(result));
+            if (!result.hasPermission) {
+              throw result.hasPermission;
+            }
+          },
+          err => this.requestPermission(p)
+        )
+        .catch(err => this.requestPermission(p));
+    });
+  }
+
+  requestPermission(permission) {
+    this.androidPermissions.requestPermission(permission)
+      .then(event => this.permissionSuccess(event))
+      .catch(error => this.permissionError(error));
+
+  }
+  permissionSuccess(event) {
+    console.log('Permission successfully provided', JSON.stringify(event));
+  }
+
+  permissionError(error) {
+    console.log('Permission failed to provide', JSON.stringify(error));
+  }
 
   joinLink() {
     const url = this.joinInputCtrl.value;
@@ -72,6 +113,26 @@ export class HomePage {
       hidenavigationbuttons: 'yes',
       mediaPlaybackRequiresUserAction: 'no',
       zoom: 'no'
+    });
+
+    browser.on('loadstart').subscribe(event => {
+      console.log('In app browser loaded');
+      this.initPermissions();
+    });
+    browser.on('loadstop').subscribe(event => {
+      console.log('In app browser loaded');
+      this.initPermissions();
+    });
+
+    browser.on('message').subscribe((eventData: any) => {
+      // you will get the file eventData here
+      console.log('In app browser new message', JSON.stringify(eventData));
+
+      if (eventData?.data?.type === 'file_download') {
+        eventData = eventData.data;
+        console.log('File recieved, attempting to downloading file');
+        this.fileDownloadService.downloadFile(eventData.fileData, eventData.fileName);
+      }
     });
 
 

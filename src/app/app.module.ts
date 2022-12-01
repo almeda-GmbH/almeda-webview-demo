@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppointmentIFramePage } from './appointment-iframe/appointment-iframe.component';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
     provide: RouteReuseStrategy,
     useClass: IonicRouteStrategy
   },
-    InAppBrowser
+    InAppBrowser,
+    AndroidPermissions
   ],
   bootstrap: [AppComponent],
 })
