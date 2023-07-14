@@ -1,4 +1,16 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-title>
+            iFrame yo!
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-icon name="star"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
+
     <ng-container *ngIf="joinLink; else errorTemp">
         <!-- camera and microhphone should be allowed on the iFrame -->
         <iframe [src]="getUrl()" frameborder="0" style="width:100%;height:100%" scrolling="yes"

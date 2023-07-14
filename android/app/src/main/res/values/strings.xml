@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">almeda-webview-demo</string>
     <string name="title_activity_main">almeda-webview-demo</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">demo.webview.almeda.ionic</string>
+    <string name="custom_url_scheme">demo.webview.almeda.ionic</string>
 </resources>

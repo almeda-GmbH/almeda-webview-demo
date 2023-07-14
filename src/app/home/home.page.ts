@@ -36,7 +36,7 @@ export class HomePage {
     private router: Router,
     private iab: InAppBrowser,
     private androidPermissions: AndroidPermissions,
-    private fileDownloadService: FileDownloadService
+    private fileDownloadService: FileDownloadService,
   ) { }
 
   initPermissions() {
@@ -105,28 +105,28 @@ export class HomePage {
     this.joinInputCtrl.reset();
   }
 
-  private startAppointmentInAB(url: string) {
-
-    const browser = this.iab.create(url, '_blank', {
-      location: 'no',
+  private async startAppointmentInAB(url: string) {
+    const browser = this.iab.create(url, '_self', { // '_self' or '_blank' is acceptable
+      location: 'yes',
       hideurlbar: 'yes',
       hidenavigationbuttons: 'yes',
       mediaPlaybackRequiresUserAction: 'no',
-      zoom: 'no'
+      zoom: 'no',
+      beforeload: 'get' // required 'post' doesn't support yet so use 'get'
     });
 
     browser.on('loadstart').subscribe(event => {
-      console.log('In app browser loaded');
+      console.log('iab: loadstart', JSON.stringify(event));
       this.initPermissions();
     });
     browser.on('loadstop').subscribe(event => {
-      console.log('In app browser loaded');
+      console.log('iab: loadstop', JSON.stringify(event));
       this.initPermissions();
     });
 
     browser.on('message').subscribe((eventData: any) => {
       // you will get the file eventData here
-      console.log('In app browser new message', JSON.stringify(eventData));
+      console.log('iab: message', JSON.stringify(eventData));
 
       if (eventData?.data?.type === 'file_download') {
         eventData = eventData.data;
@@ -135,6 +135,16 @@ export class HomePage {
       }
     });
 
+    browser.on('beforeload').subscribe(async event => {
+      await browser.executeScript({
+        code: `(function() { alert('beforeload: ${event.url.slice(0, 20)}...        Click "OK" to continue'); })()`
+      });
+      browser.close();
+      setTimeout(() => {
+        this.startAppointmentInAB(event.url);
+      }, 100);
+      console.log('iab: beforeload', JSON.stringify(event));
+    });
 
     // browser.close();
   }

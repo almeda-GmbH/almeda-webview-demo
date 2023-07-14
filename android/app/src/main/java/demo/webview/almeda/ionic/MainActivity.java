@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package demo.webview.almeda.ionic;
 
 import com.getcapacitor.BridgeActivity;
 
